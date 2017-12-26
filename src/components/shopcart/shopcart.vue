@@ -68,7 +68,7 @@ export default {
             this.fold = !this.fold
         },
         empty () {
-            this.selectFoods.forEach((food)=>{
+            this.selectFoods.forEach((food) => {
                 food.count = 0;
             })
         },
@@ -92,12 +92,12 @@ export default {
             this.selectFoods.forEach((food) => {
                 count += food.count;
             });
-            return count;     
+            return count;
         },
         payDesc () {
             if (this.totalPrice === 0) {
                 return `￥${this.minPrice}元起送`;
-            } else if (this.totalPrice <this.minPrice) {
+            } else if (this.totalPrice < this.minPrice) {
                 let diff = this.minPrice - this.totalPrice;
                 return `还差￥${diff}元起送`;
             } else {
@@ -105,13 +105,13 @@ export default {
             }
         },
         payclass () {
-            if (this.totalPrice <this.minPrice) {
+            if (this.totalPrice < this.minPrice) {
                 return 'not-enough';
             } else {
                 return 'enough'
             }
         },
-        listShow() {
+        listShow () {
             if (!this.totalCount) {
             this.fold = true;
             return false;

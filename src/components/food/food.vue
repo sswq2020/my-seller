@@ -1,6 +1,6 @@
 <template>
     <div v-show="showFlag" class="food" ref="food">
-        <div class="food-contenr">
+        <div class="food-content">
             <div class="image-header">
                 <img :src="food.image">
                 <div class="back" @click="showFlag = false">

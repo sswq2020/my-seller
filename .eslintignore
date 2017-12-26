@@ -4,4 +4,3 @@ node_modules/*.*
 src/main.js
 src/common/js/date.js
 prod.server.js
-src/components/shopcart/*.*
