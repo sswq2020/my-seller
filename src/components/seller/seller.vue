@@ -42,6 +42,17 @@
                     </li>
                 </ul>
             </div>
+            <split></split>
+            <div class="pics">
+               <h1 class="title">商家实景</h1> 
+                <div class="pic-wrapper" ref="picWrapper">
+                    <ul class="pic-list">
+                        <li class="pic-item" v-for="(pic,index) in seller.pics" :key="index">
+                            <img :src="pic" width="120" height="90" alt="">
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -66,6 +77,10 @@ export default {
       console.log(11);
       vm.$nextTick(() => {
           vm._initScroll();
+          vm._computedWidth();
+          vm.$nextTick(() => {
+             vm._picScroll();
+          })
       })
   },
   methods: {
@@ -78,6 +93,27 @@ export default {
           } else {
               vm.scroll.refresh();
           }
+      },
+      _picScroll () {
+          let vm = this;
+          if (!vm.picScroll) {
+              vm.picScroll = new BScroll(vm.$refs.picWrapper, {
+                scrollX: true,
+                probeType: 2,
+                click: true
+              })
+          } else {
+              vm.picScroll.refresh();
+          }
+      },
+      _computedWidth () {
+          let arrwidth = 0;
+          let picItems = this.$refs.picWrapper.getElementsByClassName('pic-item')
+          let piclist = this.$refs.picWrapper.getElementsByClassName('pic-list')[0]
+          for (let i = 0; i < picItems.length; i++) {
+              arrwidth = arrwidth + picItems[i].offsetWidth + 3
+          }
+          piclist.style.width = arrwidth + 'px';
       }
   },
   watch: {
@@ -85,6 +121,10 @@ export default {
           let vm = this;
           vm.$nextTick(() => {
               vm._initScroll();
+              vm._computedWidth();
+              vm.$nextTick(() => {
+                  vm._picScroll();
+              })
           })
       }
   }
@@ -121,7 +161,6 @@ export default {
           line-height:18px
           font-size:10px
           color:rgb(77,85,93)
-          
       .remark
         display:flex
         padding-top:18px
@@ -189,6 +228,26 @@ export default {
             line-height:16px
             font-weight:200
             color:rgb(7,17,27)
-            
+    .pics
+      padding:18px
+      .title
+        margin-bottom:12px
+        line-height:14px
+        font-size:14px
+        color:rgb(7,17,27)
+      .pic-wrapper
+        width:100%;
+        overflow:hidden
+        white-space:nowrap // 不会折行
+        .pic-list
+          font-size:0
+          .pic-item
+            display:inline-block
+            margin-right:6px
+            width:120px
+            height:90px
+            &:last-child
+              margin-right:0
+
 
 </style>
