@@ -3,4 +3,6 @@ config/*.js
 node_modules/*.*
 src/main.js
 src/common/js/date.js
+src/common/js/util.js
+src/common/js/store.js
 prod.server.js

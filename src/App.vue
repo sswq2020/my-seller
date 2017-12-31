@@ -12,24 +12,34 @@
         <router-link to="/seller">商家</router-link>
       </div>
     </div>
+    <keep-alive>
     <router-view :seller="seller"></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import header from 'components/header/header.vue'
+import {urlParse} from 'common/js/util';
+import _ from 'lodash';
 const ERR_OK = 0;
 export default {
   data () {
     return {
-      seller: {}
+        seller: {
+          id: (() => {
+            let queryParam = urlParse();
+            return queryParam.id;
+          })()
+        }
     }
   },
   created () {
-    this.axios.get('/api/seller').then((response) => {
+    this.axios.get('/api/seller?id=' + this.seller.id).then((response) => {
       let res = response.data;
       if (res.errno === ERR_OK) {
-          this.seller = res.data;
+            // this.seller = res.data;
+            this.seller = _.assign({}, this.seller, res.data); // 官方推荐Object.assign,我使用第三方的lodash库
       }
     })
   },
